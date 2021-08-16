@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "863018563030",
+    "project_id": "todo-list-9c2de",
+    "storage_bucket": "todo-list-9c2de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863018563030:android:cd449388a3543418dda077",
+        "android_client_info": {
+          "package_name": "com.rithiv.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863018563030-dv5cip63q81obsrc24743u9a1edsj4s6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_puQ-jQJ4K3-kkPj7O41kI3ZjCGYOfbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863018563030-dv5cip63q81obsrc24743u9a1edsj4s6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
