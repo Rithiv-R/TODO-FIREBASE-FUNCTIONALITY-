@@ -69,11 +69,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  update(var title, var description) {
-    DocumentReference documentReference =
-        Firestore.instance.collection('TODOLIST').document('$title');
-    documentReference
-        .updateData({'title': '$title', 'description': '$description'});
+  update(var main, var title, var description) async {
+    if (title == main) {
+      Firestore.instance.collection('TODOLIST').document('$main').updateData(
+          {'title': '$title', 'description': '$description'}).whenComplete(
+        () => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('$main UPDATED'),
+          ),
+        ),
+      );
+    } else if (title != main) {
+      Firestore.instance.collection('TODOLIST').document('$main').delete();
+      Firestore.instance.collection('TODOLIST').document('$title').setData({
+        'title': '$title',
+        'description': '$description'
+      }).whenComplete(() => ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('$main UPDATED'))));
+    }
   }
 
   @override
@@ -150,8 +163,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget show1(BuildContext context, var s1, var s2) {
-    t1.text = s1;
-    t2.text = s2;
+    TextEditingController x1 = TextEditingController();
+    TextEditingController x2 = TextEditingController();
+    x1.text = s1;
+    x2.text = s2;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -166,24 +181,24 @@ class _HomePageState extends State<HomePage> {
                     decoration: InputDecoration(
                       hintText: 'TITLE',
                     ),
-                    controller: t1,
+                    controller: x1,
                   ),
                   Padding(padding: EdgeInsets.only(top: 50)),
                   TextField(
                     maxLines: 5,
                     keyboardType: TextInputType.multiline,
-                    controller: t2,
+                    controller: x2,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       FlatButton(
                         onPressed: () {
-                          if (t1.text.isNotEmpty) {
+                          if (x1.text.isNotEmpty) {
                             setState(() {
-                              update(t1.text, t2.text);
-                              t1.text = "";
-                              t2.text = "";
+                              update(s1, x1.text, x2.text);
+                              x1.text = "";
+                              x2.text = "";
                               Navigator.pop(context);
                             });
                           }
@@ -193,8 +208,8 @@ class _HomePageState extends State<HomePage> {
                       FlatButton(
                           onPressed: () {
                             setState(() {
-                              t1.text = "";
-                              t2.text = "";
+                              x1.text = "";
+                              x2.text = "";
                             });
                           },
                           child: Text('Clear')),
