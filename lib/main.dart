@@ -26,11 +26,14 @@ class _HomePageState extends State<HomePage> {
   String s2;
   TextEditingController t1 = TextEditingController();
   TextEditingController t2 = TextEditingController();
+
   adddata() async {
     DocumentReference docref =
         Firestore.instance.collection('TODOLIST').document('${t1.text}');
-    docref.setData(
-        {'title': '${t1.text}', 'description': '${t2.text}'}).whenComplete(
+    docref.setData({
+      'title': '${t1.text}',
+      'description': '${t2.text}',
+    }).whenComplete(
       () => ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${t1.text} ADDED'),
